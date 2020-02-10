@@ -19,6 +19,14 @@ class Boostrap
 	 */
 	public static function init() {
 		if (is_null(self::$bootstrap)) {
+			//handle dockerized setup
+
+			if ($_SERVER['HTTP_HOST'] == 'site') {
+				$_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+				$_SERVER['HTTPS'] = 'on';
+			}
+
+			//create the bootstrap object
 			self::$bootstrap = Bootstrap::create(BP, $_SERVER);
 			$obj = self::$bootstrap->getObjectManager();
 			$state = $obj->get('Magento\Framework\App\State');
