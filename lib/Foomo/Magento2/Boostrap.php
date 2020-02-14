@@ -18,6 +18,9 @@ class Boostrap
 	 * @return \Magento\Framework\App\Bootstrap
 	 */
 	public static function init() {
+		ini_set('max_execution_time', 30 * 60);
+		ini_set('memory_limit', '2G');
+
 		if (is_null(self::$bootstrap)) {
 			//handle dockerized setup
 
