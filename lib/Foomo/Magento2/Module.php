@@ -80,7 +80,7 @@ class Module extends \Foomo\Modules\ModuleBase
 	/**
 	 * @return DomainConfig
 	 */
-	public static function getModuleConfig()
+	public static function getConf()
 	{
 		return \Foomo\Config::getConf(self::NAME, DomainConfig::NAME);
 	}
