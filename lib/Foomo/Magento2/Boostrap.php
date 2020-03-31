@@ -102,6 +102,26 @@ class Boostrap
 
 
 	/**
+	 * @param string $storeId
+	 * @return \Magento\Store\Api\Data\StoreInterface | false
+	 */
+	public static function getStoreById($storeId)
+	{
+		if (!class_exists('\Magento\Framework\App\Bootstrap')) {
+			self::init();
+		}
+		/* @var \Magento\Store\Model\StoreManagerInterface $storeManager */
+		$storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get('\Magento\Store\Model\StoreManagerInterface');
+		foreach ($storeManager->getStores() as $store) {
+			if ($store->getId() == $storeId) {
+				return $store;
+			}
+		}
+		return false;
+	}
+
+
+	/**
 	 * set current store
 	 * @param string $storeCode
 	 */
@@ -116,6 +136,21 @@ class Boostrap
 		return $storeManager->setCurrentStore(!empty($store) ? $store->getId() : 0); // default to admin store
 	}
 
+
+	/**
+	 * set current store
+	 * @return string \Magento\Store\Api\Data\StoreInterface | false
+	 */
+	public static function getCurrentStore()
+	{
+		if (!class_exists('\Magento\Framework\App\Bootstrap')) {
+			self::init();
+		}
+		$storeManager = \Magento\Framework\App\ObjectManager::getInstance()->get('\Magento\Store\Model\StoreManagerInterface');
+		return $storeManager->getStore();
+
+
+	}
 
 	/**
 	 * @return \Magento\Store\Api\Data\WebsiteExtensionInterface
