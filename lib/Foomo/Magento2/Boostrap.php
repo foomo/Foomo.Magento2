@@ -18,8 +18,11 @@ class Boostrap
 	 */
 	public static function bootstrap()
 	{
+		
 		if (!class_exists('\Magento\Framework\App\Bootstrap')) {
 			return self::init();
+		} else if(!self::$bootstrap) {
+			self::$bootstrap = Bootstrap::create(BP, $_SERVER);
 		}
 		return self::$bootstrap;
 	}
@@ -63,6 +66,7 @@ class Boostrap
 	{
 		if (!class_exists('\Magento\Framework\App\Bootstrap')) {
 			self::init();
+		} else {
 		}
 		return \Magento\Framework\App\ObjectManager::getInstance();
 
